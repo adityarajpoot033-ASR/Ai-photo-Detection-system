@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Shield, Menu, X, Sun, Moon } from "lucide-react";
+import { Shield, Menu, X, Sun, Moon, LogOut, User } from "lucide-react";
 import Magnetic from "./Magnetic";
+import { useAuth } from "../context/AuthContext";
 
 interface NavbarProps {
   isDark: boolean;
@@ -11,6 +12,7 @@ interface NavbarProps {
 export default function Navbar({ isDark, toggleTheme }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, logout, setAuthModalOpen } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -37,7 +39,7 @@ export default function Navbar({ isDark, toggleTheme }: NavbarProps) {
 
           <div className="hidden md:flex items-center gap-12">
             <nav className="flex items-center gap-10">
-              {["Features", "Process", "Demo"].map((item) => (
+              {["Features", "How it Works"].map((item) => (
                 <a 
                   key={item}
                   href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} 
@@ -58,11 +60,30 @@ export default function Navbar({ isDark, toggleTheme }: NavbarProps) {
                 {isDark ? <Sun size={20} /> : <Moon size={20} />}
               </button>
               
-              <Magnetic>
-                <button className="bg-slate-900 dark:bg-white text-white dark:text-slate-950 px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all hover:opacity-90 shadow-lg shadow-slate-200/20 dark:shadow-black/40">
-                  Sign In
-                </button>
-              </Magnetic>
+              {user ? (
+                <div className="flex items-center gap-6">
+                  <div className="flex items-center gap-3 px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                    <User size={14} className="text-slate-400" />
+                    <span className="text-xs font-bold text-slate-900 dark:text-white">{user.name}</span>
+                  </div>
+                  <button 
+                    onClick={logout}
+                    className="text-slate-400 hover:text-rose-500 transition-colors"
+                    title="Logout"
+                  >
+                    <LogOut size={18} />
+                  </button>
+                </div>
+              ) : (
+                <Magnetic>
+                  <button 
+                    onClick={() => setAuthModalOpen(true)}
+                    className="bg-slate-900 dark:bg-white text-white dark:text-slate-950 px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all hover:opacity-90 shadow-lg shadow-slate-200/20 dark:shadow-black/40"
+                  >
+                    Sign In
+                  </button>
+                </Magnetic>
+              )}
             </div>
           </div>
 
@@ -85,7 +106,7 @@ export default function Navbar({ isDark, toggleTheme }: NavbarProps) {
             className="absolute top-full left-0 right-0 p-6 md:hidden"
           >
             <div className="glass rounded-3xl p-8 flex flex-col gap-6">
-              {["Features", "Process", "Demo"].map((item) => (
+              {["Features", "Process"].map((item) => (
                 <a 
                   key={item}
                   href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} 
@@ -96,7 +117,7 @@ export default function Navbar({ isDark, toggleTheme }: NavbarProps) {
                 </a>
               ))}
               <div className="h-px bg-slate-100 dark:bg-slate-800" />
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col gap-6">
                 <button 
                   onClick={toggleTheme}
                   className="flex items-center gap-3 text-slate-900 dark:text-white"
@@ -104,9 +125,26 @@ export default function Navbar({ isDark, toggleTheme }: NavbarProps) {
                   {isDark ? <Sun size={20} /> : <Moon size={20} />}
                   <span>{isDark ? "Light Mode" : "Dark Mode"}</span>
                 </button>
-                <button className="bg-slate-900 dark:bg-white text-white dark:text-slate-950 px-6 py-3 rounded-full font-semibold">
-                  Sign In
-                </button>
+                
+                {user ? (
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <User size={20} className="text-slate-400" />
+                      <span className="font-semibold text-slate-900 dark:text-white">{user.name}</span>
+                    </div>
+                    <button onClick={logout} className="text-rose-500 font-semibold">Logout</button>
+                  </div>
+                ) : (
+                  <button 
+                    onClick={() => {
+                      setAuthModalOpen(true);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="bg-slate-900 dark:bg-white text-white dark:text-slate-950 px-6 py-3 rounded-full font-semibold"
+                  >
+                    Sign In
+                  </button>
+                )}
               </div>
             </div>
           </motion.div>

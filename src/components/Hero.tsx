@@ -37,20 +37,11 @@ export default function Hero() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => document.getElementById('scanner')?.scrollIntoView({ behavior: 'smooth' })}
                   className="w-full sm:w-auto bg-slate-900 dark:bg-white text-white dark:text-slate-950 px-12 py-6 rounded-full font-semibold text-sm transition-all shadow-[0_20px_40px_-12px_rgba(0,0,0,0.2)] dark:shadow-[0_20px_40px_-12px_rgba(255,255,255,0.1)] flex items-center justify-center gap-3"
                 >
                   Get Started
                   <ArrowRight size={16} />
-                </motion.button>
-              </Magnetic>
-              
-              <Magnetic>
-                <motion.button 
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-full sm:w-auto px-12 py-6 rounded-full font-semibold text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900"
-                >
-                  Book a Demo
                 </motion.button>
               </Magnetic>
             </div>
@@ -79,14 +70,32 @@ export default function Hero() {
             className="mt-40 lg:mt-56 w-full max-w-6xl"
           >
             <TiltCard className="w-full">
-              <div className="relative glass rounded-[4rem] p-4 shadow-[0_60px_120px_-20px_rgba(0,0,0,0.2)] dark:shadow-[0_60px_120px_-20px_rgba(0,0,0,0.6)] overflow-hidden">
-                <div className="absolute inset-0 bg-linear-to-b from-white/10 to-transparent dark:from-white/5 pointer-events-none rounded-[4rem] z-10" />
+              <div className="relative glass rounded-[4rem] p-4 shadow-[0_60px_120px_-20px_rgba(0,0,0,0.2)] dark:shadow-[0_60px_120px_-20px_rgba(0,0,0,0.6)] overflow-hidden group">
+                <div className="absolute inset-0 bg-linear-to-b from-slate-950/40 via-transparent to-slate-950/60 z-10 pointer-events-none rounded-[4rem]" />
                 <img 
                   src="https://picsum.photos/seed/vision/1600/900?grayscale" 
                   alt="VisionGuard Interface" 
-                  className="rounded-[3.5rem] w-full object-cover grayscale opacity-95 dark:opacity-60 transition-opacity"
+                  className="rounded-[3.5rem] w-full object-cover grayscale opacity-95 dark:opacity-60 transition-all duration-700 group-hover:scale-105"
                   referrerPolicy="no-referrer"
                 />
+                
+                {/* Text Overlay */}
+                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center p-12">
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.8 }}
+                    className="max-w-2xl"
+                  >
+                    <h3 className="font-display text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight leading-tight">
+                      Detect AI-Generated <br />
+                      <span className="text-slate-300">Images Instantly.</span>
+                    </h3>
+                    <p className="text-slate-300 text-sm md:text-base font-light max-w-lg mx-auto leading-relaxed">
+                      Upload any image and verify whether it is real or AI-generated using advanced neural forensic detection.
+                    </p>
+                  </motion.div>
+                </div>
                 
                 {/* Floating UI Elements inside TiltCard for Parallax Depth */}
                 <div 
