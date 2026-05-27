@@ -92,9 +92,8 @@ Ensure you have [Node.js](https://nodejs.org/) (Version 18+ recommended) and `np
 *   **Submission Date**: May 27, 2026
 *   **Scheduled Viva Date**: May 28, 2026
 *   **Group Members**:
-    *   **Student 1**: en23cs301072 (Evaluation Lead)
-    *   **Student 2**: *[Enter Name & Enrollment here]*
-    *   **Student 3**: *[Enter Name & Enrollment here]*
+    *   **Student 1**: ADITYA RAJPUT(EN23CS301072)
+    *   **Student 2**: ADITYA NAIK(EN23CS301069)
 
 ---
 
