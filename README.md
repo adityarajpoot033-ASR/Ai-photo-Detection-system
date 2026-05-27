@@ -52,6 +52,12 @@ The forensic diagnostic visualization used to analyze anomalies:
 
 ![Forensic Analytics Grid](./src/assets/images/visionguard_forensic_metrics_1779881918081.png)
 
+## Live Demo
+
+🔗 Vercel Deployment: https://your-vercel-link.vercel.app
+
+Experience the AI Generated or Morphed Image Detection System live in your browser. Upload an image and instantly detect whether it is Real or AI Generated using our VGG16-based deep learning model.
+
 ---
 
 ## 🚀 Installation & Execution Steps
